@@ -39,8 +39,6 @@ import { WorkflowStaticDataService } from '@/workflows/workflow-static-data.serv
 import { EventService } from './events/event.service';
 import { GlobalConfig } from '@n8n/config';
 
-import { isPartialExecutionEnabled } from './FeatureFlags';
-
 @Service()
 export class WorkflowRunner {
 	private scalingService: ScalingService;
@@ -319,8 +317,8 @@ export class WorkflowRunner {
 				// Execute only the nodes between start and destination nodes
 				const workflowExecute = new WorkflowExecute(additionalData, data.executionMode);
 
-				if (await isPartialExecutionEnabled()) {
-					console.debug('Partial execution is enabled');
+				if (data.partialExecutionVersion === '1') {
+					console.debug('new partial execution is enabled');
 					workflowExecution = workflowExecute.runPartialWorkflow2(
 						workflow,
 						data.runData,
