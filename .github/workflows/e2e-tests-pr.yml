@@ -6,6 +6,16 @@ on:
     branches:
       - 'master'
       - 'release/*'
+    paths-ignore:
+      - '.devcontainer/**'
+      - '.github/*'
+      - '.github/scripts/*'
+      - '.github/workflows/benchmark-*'
+      - '.github/workflows/check-*'
+      - '.vscode/**'
+      - 'docker/**'
+      - 'packages/@n8n/benchmark/**'
+      - '*.md'
 
 concurrency:
   group: e2e-${{ github.event.pull_request.number || github.ref }}
